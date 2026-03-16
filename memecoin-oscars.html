@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Meme Oscars 2025 — Best Memecoin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold2: #F5D060;
+    --dark: #0A0804;
+    --darker: #060503;
+    --cream: #F7EDD8;
+    --red: #C0392B;
+    --charcoal: #1A1710;
+    --mid: #2A2418;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--darker);
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Film grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.35;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+
+  .header::before {
+    content: '✦ THE 1ST ANNUAL ✦';
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 12vw, 120px);
+    letter-spacing: 8px;
+    color: var(--gold);
+    line-height: 0.9;
+    text-shadow: 0 0 60px rgba(212,175,55,0.3), 0 4px 20px rgba(0,0,0,0.8);
+    animation: fadeIn 1.2s ease forwards;
+  }
+
+  .header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 4vw, 32px);
+    color: var(--cream);
+    margin-top: 8px;
+    opacity: 0.85;
+    animation: fadeIn 1.4s ease forwards;
+  }
+
+  .header-divider {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(212,175,55,0.6);
+    text-transform: uppercase;
+  }
+
+  /* Stat bar */
+  .stat-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background: rgba(212,175,55,0.04);
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(247,237,216,0.4);
+    text-transform: uppercase;
+  }
+
+  /* Main content */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 8px;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    content: '—';
+    margin: 0 16px;
+    opacity: 0.4;
+  }
+
+  /* Nominee grid */
+  .nominees {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .nominee-card {
+    background: var(--charcoal);
+    border: 1px solid rgba(212,175,55,0.15);
+    border-radius: 4px;
+    padding: 28px 24px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .nominee-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .nominee-card:hover::before { opacity: 1; }
+  .nominee-card:hover {
+    border-color: rgba(212,175,55,0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.08);
+  }
+
+  .nominee-card.voted {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, var(--charcoal) 100%);
+  }
+
+  .nominee-card.voted::after {
+    content: '✓ YOUR VOTE';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    background: rgba(212,175,55,0.15);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .nominee-emoji {
+    font-size: 44px;
+    display: block;
+    margin-bottom: 16px;
+    line-height: 1;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+  }
+
+  .nominee-ticker {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .nominee-name {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(247,237,216,0.6);
+    margin-top: 4px;
+    margin-bottom: 16px;
+  }
+
+  .nominee-desc {
+    font-size: 10px;
+    line-height: 1.7;
+    color: rgba(247,237,216,0.45);
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Vote bar */
+  .vote-bar-wrap {
+    margin-bottom: 16px;
+  }
+
+  .vote-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(212,175,55,0.5);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .vote-bar-track {
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .vote-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .vote-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.3);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+  }
+
+  .vote-btn:hover {
+    background: rgba(212,175,55,0.12);
+    border-color: var(--gold);
+  }
+
+  .vote-btn:active { transform: scale(0.98); }
+
+  .vote-btn.voted-btn {
+    background: rgba(212,175,55,0.15);
+    border-color: var(--gold);
+    color: var(--gold2);
+  }
+
+  /* Leaderboard */
+  .leaderboard {
+    background: var(--charcoal);
+    border: 1px solid rgba(212,175,55,0.15);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 60px;
+  }
+
+  .lb-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lb-header span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  .lb-row {
+    display: grid;
+    grid-template-columns: 40px 36px 1fr 80px 100px;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: background 0.2s;
+    gap: 12px;
+  }
+
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:hover { background: rgba(212,175,55,0.04); }
+
+  .lb-rank {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: rgba(212,175,55,0.3);
+  }
+
+  .lb-rank.top { color: var(--gold); }
+
+  .lb-emoji { font-size: 22px; }
+
+  .lb-ticker {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--cream);
+  }
+
+  .lb-votes {
+    font-size: 10px;
+    color: rgba(247,237,216,0.4);
+    letter-spacing: 1px;
+    text-align: right;
+  }
+
+  .lb-bar-wrap {
+    height: 4px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .lb-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--charcoal);
+    border: 1px solid var(--gold);
+    padding: 14px 28px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    border-radius: 2px;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 1000;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid rgba(212,175,55,0.1);
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(247,237,216,0.2);
+    text-transform: uppercase;
+  }
+
+  .oscar-statuette {
+    font-size: 32px;
+    display: block;
+    margin: 0 auto 16px;
+    filter: sepia(1) saturate(2) hue-rotate(5deg);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 50%, var(--gold) 100%);
+    background-size: 400px 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @media (max-width: 600px) {
+    .lb-row { grid-template-columns: 32px 28px 1fr 60px; }
+    .lb-bar-wrap { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1 class="gold-shimmer">MEME OSCARS</h1>
+  <h2>Best Memecoin of the Year</h2>
+  <div class="header-divider"></div>
+  <p class="subtitle">Cast your vote · One per session · Results live</p>
+</div>
+
+<div class="stat-bar" id="statBar">
+  <div class="stat-item">
+    <span class="stat-num" id="totalVotes">0</span>
+    <span class="stat-label">Total Votes</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">8</span>
+    <span class="stat-label">Nominees</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" id="leadingCoin">—</span>
+    <span class="stat-label">Leading Nominee</span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="section-title">THE NOMINEES</div>
+
+  <div class="nominees" id="nominees"></div>
+
+  <div class="section-title">LIVE STANDINGS</div>
+
+  <div class="leaderboard">
+    <div class="lb-header">
+      <span>🏆</span>
+      <span>Current Rankings</span>
+    </div>
+    <div id="leaderboard"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <span class="oscar-statuette">🏆</span>
+  <p>The Meme Oscars — A tribute to the degens who made it happen</p>
+  <p style="margin-top:8px;">Not financial advice. For entertainment purposes only.</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const COINS = [
+    {
+      id: 'pepe',
+      ticker: '$PEPE',
+      name: 'Pepe the Frog',
+      emoji: '🐸',
+      desc: 'The OG internet meme turned billion-dollar crypto. Born from the forums, beloved by the internet. Probably the most culturally significant token in existence.',
+      baseVotes: 1847
+    },
+    {
+      id: 'bonk',
+      ticker: '$BONK',
+      name: 'Bonk the Dog',
+      emoji: '🐕',
+      desc: 'The Solana dog that saved Christmas. Airdropped its way into history and put Solana back on the map. The people\'s coin.',
+      baseVotes: 1203
+    },
+    {
+      id: 'wif',
+      ticker: '$WIF',
+      name: 'Dogwifhat',
+      emoji: '🐶',
+      desc: 'A dog. In a hat. That\'s it. That\'s the pitch. Reached a $4B market cap purely on vibes and a pink beanie.',
+      baseVotes: 1456
+    },
+    {
+      id: 'trump',
+      ticker: '$TRUMP',
+      name: 'Official Trump',
+      emoji: '🇺🇸',
+      desc: 'Launched by the President of the United States days before inauguration. Made memecoin history. Controversial, chaotic, massive.',
+      baseVotes: 2091
+    },
+    {
+      id: 'pengu',
+      ticker: '$PENGU',
+      name: 'Pudgy Penguins',
+      emoji: '🐧',
+      desc: 'From NFT collection to global toy shelves to memecoin. The most legitimate glow-up in crypto. Penguins won.',
+      baseVotes: 987
+    },
+    {
+      id: 'pnut',
+      ticker: '$PNUT',
+      name: 'Peanut the Squirrel',
+      emoji: '🐿️',
+      desc: 'A squirrel was seized by the government. The internet got angry. A memecoin was born. Peak 2024 narrative.',
+      baseVotes: 743
+    },
+    {
+      id: 'moodeng',
+      ticker: '$MOODENG',
+      name: 'Moo Deng',
+      emoji: '🦛',
+      desc: 'The baby hippo that broke the internet and then broke Solana\'s charts. Cute aggression turned into serious alpha.',
+      baseVotes: 612
+    },
+    {
+      id: 'fartcoin',
+      ticker: '$FARTCOIN',
+      name: 'Fartcoin',
+      emoji: '💨',
+      desc: 'Reached a $1B market cap. No utility. No roadmap. Just gas. The greatest joke in financial history.',
+      baseVotes: 534
+    }
+  ];
+
+  let votes = JSON.parse(localStorage.getItem('meme-oscar-votes') || '{}');
+  // Init base votes
+  COINS.forEach(c => {
+    if (votes[c.id] === undefined) votes[c.id] = c.baseVotes + Math.floor(Math.random() * 200);
+  });
+
+  let userVote = localStorage.getItem('meme-oscar-my-vote') || null;
+
+  function saveVotes() {
+    localStorage.setItem('meme-oscar-votes', JSON.stringify(votes));
+  }
+
+  function getTotalVotes() {
+    return Object.values(votes).reduce((a, b) => a + b, 0);
+  }
+
+  function getLeader() {
+    let max = 0, leader = '';
+    COINS.forEach(c => {
+      if (votes[c.id] > max) { max = votes[c.id]; leader = c.ticker; }
+    });
+    return leader;
+  }
+
+  function getSorted() {
+    return [...COINS].sort((a, b) => votes[b.id] - votes[a.id]);
+  }
+
+  function renderNominees() {
+    const container = document.getElementById('nominees');
+    container.innerHTML = '';
+    const total = getTotalVotes();
+
+    COINS.forEach(coin => {
+      const pct = total > 0 ? ((votes[coin.id] / total) * 100).toFixed(1) : 0;
+      const isVoted = userVote === coin.id;
+
+      const card = document.createElement('div');
+      card.className = `nominee-card${isVoted ? ' voted' : ''}`;
+      card.innerHTML = `
+        <span class="nominee-emoji">${coin.emoji}</span>
+        <div class="nominee-ticker">${coin.ticker}</div>
+        <div class="nominee-name">${coin.name}</div>
+        <div class="nominee-desc">${coin.desc}</div>
+        <div class="vote-bar-wrap">
+          <div class="vote-bar-label">
+            <span>Vote Share</span>
+            <span>${pct}%</span>
+          </div>
+          <div class="vote-bar-track">
+            <div class="vote-bar-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+        <button class="vote-btn ${isVoted ? 'voted-btn' : ''}" data-id="${coin.id}">
+          ${isVoted ? '★ VOTED' : 'CAST VOTE'}
+        </button>
+      `;
+      container.appendChild(card);
+    });
+
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+      btn.addEventListener('click', () => handleVote(btn.dataset.id));
+    });
+  }
+
+  function renderLeaderboard() {
+    const sorted = getSorted();
+    const total = getTotalVotes();
+    const maxVotes = votes[sorted[0].id];
+    const container = document.getElementById('leaderboard');
+    container.innerHTML = '';
+
+    sorted.forEach((coin, i) => {
+      const pct = total > 0 ? ((votes[coin.id] / total) * 100).toFixed(1) : 0;
+      const barW = maxVotes > 0 ? ((votes[coin.id] / maxVotes) * 100).toFixed(1) : 0;
+      const row = document.createElement('div');
+      row.className = 'lb-row';
+      row.innerHTML = `
+        <div class="lb-rank ${i < 3 ? 'top' : ''}">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i+1}</div>
+        <div class="lb-emoji">${coin.emoji}</div>
+        <div class="lb-ticker">${coin.ticker}</div>
+        <div class="lb-votes">${votes[coin.id].toLocaleString()} votes · ${pct}%</div>
+        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%"></div></div>
+      `;
+      container.appendChild(row);
+    });
+  }
+
+  function updateStats() {
+    document.getElementById('totalVotes').textContent = getTotalVotes().toLocaleString();
+    document.getElementById('leadingCoin').textContent = getLeader();
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function handleVote(id) {
+    if (userVote) {
+      if (userVote === id) {
+        showToast('YOU ALREADY VOTED FOR THIS COIN');
+      } else {
+        showToast('YOU ALREADY CAST YOUR VOTE — NO CHANGING YOUR MIND');
+      }
+      return;
+    }
+    votes[id]++;
+    userVote = id;
+    localStorage.setItem('meme-oscar-my-vote', id);
+    saveVotes();
+    const coin = COINS.find(c => c.id === id);
+    showToast(`✓ VOTED FOR ${coin.ticker}`);
+    renderNominees();
+    renderLeaderboard();
+    updateStats();
+  }
+
+  // Init
+  renderNominees();
+  renderLeaderboard();
+  updateStats();
+</script>
+</body>
+</html>
